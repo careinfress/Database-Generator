@@ -1,2 +1,2 @@
-rootProject.name = "Database Generator"
+rootProject.name = "RPC Generator"
 
