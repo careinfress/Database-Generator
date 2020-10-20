@@ -81,6 +81,14 @@ public class SaveFilePath {
                 saveFilePath = new SaveFilePath(entityName + settings.getControllerSuffix() + ".java",
                         settings.getJavaPathAt(settings.getControllerPackage()));
                 break;
+            case "cli":
+                saveFilePath = new SaveFilePath(entityName + settings.getCliSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getCliPackage()));
+                break;
+            case "def":
+                saveFilePath = new SaveFilePath(entityName + settings.getDefSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getDefPackage()));
+                break;
             case "xml":
                 saveFilePath = new SaveFilePath(entityName + settings.getDaoSuffix() + ".xml",
                         settings.getSourcesPathAt(settings.getXmlPackage()));

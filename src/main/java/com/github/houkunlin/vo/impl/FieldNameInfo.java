@@ -16,17 +16,21 @@ public class FieldNameInfo implements IName {
     private final String value;
     private final String firstUpper;
     private final String firstLower;
+    private final String underscoreUpper;
 
-    public FieldNameInfo(String value, String firstUpper, String firstLower) {
+    public FieldNameInfo(String value, String firstUpper, String firstLower, String underscoreUpper) {
         this.value = value;
         this.firstUpper = firstUpper;
         this.firstLower = firstLower;
+        this.underscoreUpper = underscoreUpper;
     }
 
     public FieldNameInfo(DasColumn dbColumn) {
         this.value = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, dbColumn.getName());
         this.firstUpper = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, value);
         this.firstLower = value;
+        // UPPER_UNDERSCORE
+        this.underscoreUpper = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, dbColumn.getName());
     }
 
     @Override

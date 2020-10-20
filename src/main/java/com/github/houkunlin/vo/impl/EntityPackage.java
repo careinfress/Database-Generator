@@ -41,6 +41,10 @@ public class EntityPackage {
      */
     private EntityPackageInfo controller;
 
+    private EntityPackageInfo cli;
+
+    private EntityPackageInfo def;
+
     public void add(String fullPackageName) {
         if (fullPackageName.startsWith("java.lang.")) {
             return;
@@ -67,5 +71,8 @@ public class EntityPackage {
         this.serviceImpl = new EntityPackageInfo(settings.getServicePackage() + ".impl", entityName.getServiceImpl());
         this.dao = new EntityPackageInfo(settings.getDaoPackage(), entityName.getDao());
         this.controller = new EntityPackageInfo(settings.getControllerPackage(), entityName.getController());
+
+        this.cli = new EntityPackageInfo(settings.getCliPackage(), entityName.getCli());
+        this.def = new EntityPackageInfo(settings.getCliPackage(), entityName.getDef());
     }
 }

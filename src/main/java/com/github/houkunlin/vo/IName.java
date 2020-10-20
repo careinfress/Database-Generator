@@ -25,4 +25,13 @@ public interface IName {
     default String getFirstUpper() {
         return toString();
     }
+
+    /**
+     * 获得名称
+     *
+     * @return 名称（下划线，大写）
+     */
+    default String getUnderscoreUpper() {
+        return toString();
+    }
 }

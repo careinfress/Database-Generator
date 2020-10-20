@@ -90,6 +90,9 @@ public class GeneratorTask extends Task.Modal {
 
     @Override
     public void onThrowable(@NotNull Throwable error) {
+        for (StackTraceElement stackTraceElement : error.getStackTrace()) {
+            System.out.println(stackTraceElement.toString());
+        }
         super.onThrowable(error);
         Messages.showErrorDialog("代码生成失败，当前插件 2.x 版本不兼容旧版的代码模板，请升级代码模板，代码模板升级指南请查看插件介绍。\n\n" + error.getMessage(), "生成代码失败");
         windows.setVisible(true);

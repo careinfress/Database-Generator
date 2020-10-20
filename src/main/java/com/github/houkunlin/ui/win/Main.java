@@ -119,8 +119,11 @@ public class Main extends JFrame {
         this.settings = configService.getSettings();
         this.developer = configService.getDeveloper();
         this.options = configService.getOptions();
+        // 第一页面基础设置
         baseSetting = new BaseSetting(settings, developer, options);
+        // 第二页面选择模板
         selectTemplate = new SelectTemplate();
+        // 第三页面选择表中参数
         tableSetting = new TableSetting(psiElements);
         tableTabbedPane.addTab("基础配置", baseSetting.getContent());
         tableTabbedPane.addTab("模板选择", selectTemplate.getContent());
@@ -166,6 +169,7 @@ public class Main extends JFrame {
                     return;
                 }
                 setVisible(false);
+                // 这个地方才真正开始调用生成代码
                 Generator generator = new Generator(settings, options, developer);
                 GeneratorTask generatorTask = new GeneratorTask(project, this, generator, allSelectFile, tableSetting.getRootModels());
                 ProgressManager.getInstance().run(generatorTask);

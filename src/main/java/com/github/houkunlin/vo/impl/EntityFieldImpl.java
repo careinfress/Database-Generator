@@ -66,7 +66,10 @@ public class EntityFieldImpl implements IEntityField {
      * @return 字段对象
      */
     public static EntityFieldImpl primaryField(String name, String typeName, String fullTypeName, String comment) {
-        FieldNameInfo fieldNameInfo = new FieldNameInfo(name, CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, name), name);
+        FieldNameInfo fieldNameInfo = new FieldNameInfo(name,
+                CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, name),
+                name,
+                CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, name));
         return new EntityFieldImpl(fieldNameInfo, typeName, fullTypeName, true, comment, true);
     }
 

@@ -38,6 +38,12 @@ public class EntityName implements IName {
      */
     private IName controller;
 
+    private IName cli;
+    private IName def;
+    private IName proc;
+    private IName handle;
+
+
     public EntityName(DbTable dbTable) {
         this.value = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, dbTable.getName());
         this.firstUpper = value;
@@ -61,6 +67,9 @@ public class EntityName implements IName {
         this.serviceImpl = build(settings.getServiceSuffix() + "Impl");
         this.dao = build(settings.getDaoSuffix());
         this.controller = build(settings.getControllerSuffix());
+
+        this.cli = build(settings.getCliSuffix());
+        this.def = build(settings.getDefSuffix());
     }
 
     private IName build(String suffix) {

@@ -126,7 +126,9 @@ public class BaseSetting implements IWindows {
         this.settings = settings;
         this.developer = developer;
         this.options = options;
+        // 初始化开发者信息的输入框内容
         initConfig();
+        // 配置选择包名的按钮事件
         configSelectPackage();
 
         /* 普通输入框的输入事件监听 */
@@ -308,6 +310,7 @@ public class BaseSetting implements IWindows {
         authorField.setText(developer.getAuthor());
         emailField.setText(developer.getEmail());
 
+        // 将前端输入的参数设置到相关的对象中
         entitySuffixField.setText(settings.getEntitySuffix());
         daoSuffixField.setText(settings.getDaoSuffix());
         serviceSuffixField.setText(settings.getServiceSuffix());

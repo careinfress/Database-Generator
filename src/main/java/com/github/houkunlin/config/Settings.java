@@ -58,6 +58,30 @@ public class Settings {
      * Mapper XML 包名
      */
     private String xmlPackage = "mapper";
+    /**
+     * Cli 后缀
+     */
+    private String cliSuffix = "Cli";
+    /**
+     * Def 后缀
+     */
+    private String defSuffix = "Def";
+    /**
+     * Proc 后缀
+     */
+    private String procSuffix = "Proc";
+    /**
+     * Handle 后缀
+     */
+    private String handleSuffix = "Handle";
+    /**
+     * cli 包名
+     */
+    private String cliPackage = "fai.cli";
+    /**
+     * Def 包名
+     */
+    private String defPackage = "fai.app";
 
     public String getSourcesPathAt(String filename) {
         return sourcesPath + "/" + filename;
