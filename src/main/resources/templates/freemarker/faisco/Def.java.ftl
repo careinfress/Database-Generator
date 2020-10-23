@@ -3,8 +3,12 @@ package ${entity.packages.def};
 
 import fai.comm.util.*;
 
-${entity.packages}
 
+/**
+ *
+ * @author ${developer.author}
+ * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
+ */
 public class ${entity.name.def} {
 
     public ${entity.name.def}() {
@@ -37,9 +41,10 @@ public class ${entity.name.def} {
                 public static final int INFO = 5;
                 public static final int INFO_LIST = 6;
                 public static final int UPDATER = 7;
-                public static final int SEARCH_ARG = 8;
-                public static final int TOTAL_SIZE = 9;
-                public static final int FIELD = 10;
+                public static final int MATCHER = 8;
+                public static final int SEARCH_ARG = 9;
+                public static final int TOTAL_SIZE = 10;
+                public static final int FIELD = 11;
             }
             private static ParamDef g_${entity.name.def.firstLower} = new ParamDef();
             static {
