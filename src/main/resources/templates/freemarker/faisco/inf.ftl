@@ -4,12 +4,11 @@ package ${entity.packages.inf};
 import fai.comm.util.*;
 
 /**
- * inf：${entity.comment}
  *
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
-public interface ${entity.name} extends CorpKit {
+public interface ${entity.name.inf} extends CorpKit {
 
     /**
      * 业务处理：保存添加 <strong>${entity.comment}</strong>

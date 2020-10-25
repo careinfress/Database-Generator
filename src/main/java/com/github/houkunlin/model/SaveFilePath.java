@@ -89,6 +89,32 @@ public class SaveFilePath {
                 saveFilePath = new SaveFilePath(entityName + settings.getDefSuffix() + ".java",
                         settings.getJavaPathAt(settings.getDefPackage()));
                 break;
+            case "inf":
+                saveFilePath = new SaveFilePath(entityName + ".java",
+                        settings.getJavaPathAt(settings.getInfPackage()));
+                break;
+            case "kit":
+                saveFilePath = new SaveFilePath(entityName + "Impl.java",
+                        settings.getJavaPathAt(settings.getKitPackage()));
+                break;
+            case "sysInf":
+                saveFilePath = new SaveFilePath("Sys" + entityName + ".java",
+                        settings.getJavaPathAt(settings.getSysInfPackage()));
+                break;
+            case "sysKit":
+                saveFilePath = new SaveFilePath("Sys" + entityName + "Impl.java",
+                        settings.getJavaPathAt(settings.getSysKitPackage()));
+                break;
+            case "svr":
+                saveFilePath = new SaveFilePath( entityName + settings.getSvrSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getSvrPackage()));
+            case "handler":
+                saveFilePath = new SaveFilePath( entityName + settings.getHandlerSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getSvrPackage()));
+            case "proc":
+                saveFilePath = new SaveFilePath( entityName + settings.getProcSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getSvrPackage()));
+                break;
             case "xml":
                 saveFilePath = new SaveFilePath(entityName + settings.getDaoSuffix() + ".xml",
                         settings.getSourcesPathAt(settings.getXmlPackage()));

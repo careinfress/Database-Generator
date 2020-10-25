@@ -1,15 +1,14 @@
-${gen.setType("inf")}
-package ${entity.packages.inf};
+${gen.setType("sysInf")}
+package ${entity.packages.sysInf};
 
 import fai.comm.util.*;
 
 /**
- * inf：${entity.comment}
  *
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
-public interface Sys${entity.name.inf} extends CorpKit {
+public interface Sys${entity.name} extends CorpKit {
 
     /**
      * 业务处理：保存添加 <strong>${entity.comment}</strong>

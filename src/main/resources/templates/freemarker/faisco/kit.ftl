@@ -4,17 +4,19 @@ package ${entity.packages.kit};
 import fai.app.*;
 import fai.cli.*;
 import fai.comm.util.*;
-import fai.web.*;
+import fai.web.App;
+import fai.web.Core;
+import fai.web.Kit;
+import fai.web.WebException;
 import fai.web.inf.*;
 
 /**
- * kit：${entity.comment}
  *
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
 @Kit(Kit.Type.CORP)
-public class ${entity.name}Impl extends CorpKitImpl implements ${entity.name} {
+public class ${entity.name.kit} extends CorpKitImpl implements ${entity.name} {
 
     @Override
     public int add${entity.name}(Param info) throws Exception {
@@ -41,7 +43,7 @@ public class ${entity.name}Impl extends CorpKitImpl implements ${entity.name} {
     }
 
     @Override
-    public int update${entity.name}(int id, ParamUpdater updater) {
+    public int update${entity.name}(int id, ParamUpdater updater) throws Exception {
         int rt = Errno.OK;
         if (id <= 0 || updater == null || updater.isEmpty()) {
             rt = Errno.ARGS_ERROR;
@@ -49,7 +51,7 @@ public class ${entity.name}Impl extends CorpKitImpl implements ${entity.name} {
             return rt;
         }
         ${entity.name.cli} cli = createCli();
-        rt = cli.update${entity.name}(m_aid, id, updater);
+        rt = cli.set${entity.name}(m_aid, id, updater);
         if (rt != Errno.OK) {
             App.logErr(rt, "update${entity.name} error; aid=%d, id=%d", m_aid, id);
             return rt;
@@ -86,7 +88,7 @@ public class ${entity.name}Impl extends CorpKitImpl implements ${entity.name} {
     }
 
     @Override
-    public FaiList<Param> get${entity.name}List(SearchArg searchArg) {
+    public FaiList<Param> get${entity.name}List(SearchArg searchArg) throws Exception {
         int rt = Errno.OK;
         FaiList<Param> list = new FaiList<Param>();
         if (searchArg == null) {
@@ -96,11 +98,6 @@ public class ${entity.name}Impl extends CorpKitImpl implements ${entity.name} {
         if (searchArg.matcher == null) {
             searchArg.matcher = new ParamMatcher();
         }
-
-        // 只允许查自己的
-        SearchArg searchArgTmp = new SearchArg();
-        searchArgTmp.matcher = new ParamMatcher(${entity.name.def}.Info.AID, ParamMatcher.EQ, m_aid);
-        searchArg.matcher.and(searchArgTmp.matcher);
 
         ${entity.name.cli} cli = createCli();
         rt = cli.get${entity.name}List(m_aid, searchArg, list);

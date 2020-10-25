@@ -1,14 +1,16 @@
-${gen.setType("kit")}
-package ${entity.packages.kit};
+${gen.setType("sysKit")}
+package ${entity.packages.sysKit};
 
 import fai.app.*;
 import fai.cli.*;
 import fai.comm.util.*;
-import fai.web.*;
+import fai.web.App;
+import fai.web.Core;
+import fai.web.Kit;
+import fai.web.WebException;
 import fai.web.inf.*;
 
 /**
- * sysKit：${entity.comment}
  *
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
@@ -41,7 +43,7 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
     }
 
     @Override
-    public int update${entity.name}(int id, ParamUpdater updater) {
+    public int update${entity.name}(int id, ParamUpdater updater) throws Exception {
         int rt = Errno.OK;
         if (id <= 0 || updater == null || updater.isEmpty()) {
             rt = Errno.ARGS_ERROR;
@@ -49,7 +51,7 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
             return rt;
         }
         ${entity.name.cli} cli = createCli();
-        rt = cli.update${entity.name}(m_aid, id, updater);
+        rt = cli.set${entity.name}(m_aid, id, updater);
         if (rt != Errno.OK) {
             App.logErr(rt, "update${entity.name} error; aid=%d, id=%d", m_aid, id);
             return rt;
@@ -65,7 +67,7 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
      * @param matcher 选择条件封装
      * @return 请求处理结果
      */
-    public int del${entity.name}(int id, ParamMatcher matcher) {
+    public int del${entity.name}(int id, ParamMatcher matcher) throws Exception {
     	return del${entity.name}(0, id, matcher);
     }
 
@@ -86,7 +88,7 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
     }
 
     @Override
-    public FaiList<Param> get${entity.name}List(SearchArg searchArg) {
+    public FaiList<Param> get${entity.name}List(SearchArg searchArg) throws Exception {
         int rt = Errno.OK;
         FaiList<Param> list = new FaiList<Param>();
 

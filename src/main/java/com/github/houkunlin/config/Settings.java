@@ -58,30 +58,63 @@ public class Settings {
      * Mapper XML 包名
      */
     private String xmlPackage = "mapper";
+    // -----------------------------------------这里开始是 fkw 的 rpc 配置-------------------------------
     /**
      * Cli 后缀
      */
     private String cliSuffix = "Cli";
     /**
-     * Def 后缀
-     */
-    private String defSuffix = "Def";
-    /**
-     * Proc 后缀
-     */
-    private String procSuffix = "Proc";
-    /**
-     * Handle 后缀
-     */
-    private String handleSuffix = "Handle";
-    /**
      * cli 包名
      */
     private String cliPackage = "fai.cli";
     /**
+     * Def 后缀
+     */
+    private String defSuffix = "Def";
+    /**
      * Def 包名
      */
     private String defPackage = "fai.app";
+    /**
+     * Inf 包名
+     */
+    private String infPackage = "fai.web.inf";
+    /**
+     * Kit 包名
+     */
+    private String kitPackage = "fai.web.kit";
+
+    /**
+     * sysInf 包名
+     */
+    private String sysInfPackage = "fai.web.inf";
+
+    /**
+     * sysKit 包名
+     */
+    private String sysKitPackage = "fai.web.kit";
+
+    /**
+     * svr 后缀
+     */
+    private String svrSuffix = "Svr";
+    /**
+     * svr 包名
+     */
+    private String svrPackage = "fai.svr";
+
+    /**
+     * handler 后缀
+     */
+    private String handlerSuffix = "Handler";
+
+    /**
+     * Proc 后缀
+     */
+    private String procSuffix = "Proc";
+
+
+
 
     public String getSourcesPathAt(String filename) {
         return sourcesPath + "/" + filename;

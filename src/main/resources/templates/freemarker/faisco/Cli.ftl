@@ -27,16 +27,6 @@ public class ${entity.name.cli} extends FaiClient {
     }
 
     /**
-     * 初始化 默认使用配置中心配置
-     *
-     * @param wid
-     */
-    public boolean init(int wid) {
-        m_wid = wid;
-        return init();
-    }
-
-    /**
      * 业务处理：保存添加 <strong>${entity.comment}</strong>
      *
      * @param info ${entity.comment}
@@ -160,13 +150,13 @@ public class ${entity.name.cli} extends FaiClient {
             // 编码
             FaiBuffer sendBody = new FaiBuffer(true);
             sendBody.putInt(${entity.name.def}.Protocol.Key.ID, id);
-            updater.toBuffer(sendBody, ${entity.name.def}.Protocol.Key.SET, ${entity.name.def}.Protocol.get${entity.name.def}());
+            updater.toBuffer(sendBody, ${entity.name.def}.Protocol.Key.UPDATER, ${entity.name.def}.Protocol.get${entity.name.def}());
 
             FaiProtocol sendProtocol = new FaiProtocol();
             if (aid > 0) {
                 sendProtocol.setAid(aid);
             }
-            sendProtocol.setCmd(${entity.name.def}.Protocol.Cmd.UPD);
+            sendProtocol.setCmd(${entity.name.def}.Protocol.Cmd.SET);
             sendProtocol.addEncodeBody(sendBody);
             // 发送数据
             m_rt = send(sendProtocol);

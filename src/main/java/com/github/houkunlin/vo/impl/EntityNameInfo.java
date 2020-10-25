@@ -22,6 +22,12 @@ public class EntityNameInfo implements IName {
         this.firstUpper = value;
     }
 
+    public EntityNameInfo(String entityName, String suffix, String prefix) {
+        this.value = prefix + entityName + suffix;
+        this.firstLower = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, toString());
+        this.firstUpper = value;
+    }
+
     @Override
     public String toString() {
         return value;

@@ -40,8 +40,14 @@ public class EntityName implements IName {
 
     private IName cli;
     private IName def;
-    private IName proc;
-    private IName handle;
+
+    private IName inf;
+    private IName kit;
+    private IName sysInf;
+    private IName sysKit;
+
+    private IName svr;
+
 
 
     public EntityName(DbTable dbTable) {
@@ -70,9 +76,20 @@ public class EntityName implements IName {
 
         this.cli = build(settings.getCliSuffix());
         this.def = build(settings.getDefSuffix());
+
+        this.inf = build("");
+        this.kit = build("Impl");
+        this.sysInf = build("Sys", "");
+        this.sysKit = build("Sys", "Impl");
+
+        this.svr = build(settings.getSvrSuffix());
     }
 
     private IName build(String suffix) {
         return new EntityNameInfo(value, suffix);
+    }
+
+    private IName build(String prefix, String suffix) {
+        return new EntityNameInfo(prefix, value, suffix);
     }
 }

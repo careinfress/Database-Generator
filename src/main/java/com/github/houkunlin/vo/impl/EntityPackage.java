@@ -45,6 +45,17 @@ public class EntityPackage {
 
     private EntityPackageInfo def;
 
+    private EntityPackageInfo inf;
+
+    private EntityPackageInfo kit;
+
+    private EntityPackageInfo sysInf;
+
+    private EntityPackageInfo sysKit;
+
+    private EntityPackageInfo svr;
+
+
     public void add(String fullPackageName) {
         if (fullPackageName.startsWith("java.lang.")) {
             return;
@@ -74,5 +85,11 @@ public class EntityPackage {
 
         this.cli = new EntityPackageInfo(settings.getCliPackage(), entityName.getCli());
         this.def = new EntityPackageInfo(settings.getCliPackage(), entityName.getDef());
+        this.inf = new EntityPackageInfo(settings.getInfPackage(), entityName.getInf());
+        this.kit = new EntityPackageInfo(settings.getKitPackage(), entityName.getKit());
+        this.sysInf = new EntityPackageInfo(settings.getSysInfPackage(), entityName.getSysInf());
+        this.sysKit = new EntityPackageInfo(settings.getSysKitPackage(), entityName.getSysKit());
+
+        this.svr = new EntityPackageInfo(settings.getSvrPackage(), entityName.getSvr());
     }
 }
