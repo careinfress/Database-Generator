@@ -47,6 +47,10 @@ public class Main extends JFrame {
      */
     private final TableSetting tableSetting;
     /**
+     * 面板对象：netkit/jnetkit信息配置
+     */
+    private final FkwSetting fkwSetting;
+    /**
      * 面板对象：基础信息配置
      */
     private final BaseSetting baseSetting;
@@ -120,12 +124,15 @@ public class Main extends JFrame {
         this.developer = configService.getDeveloper();
         this.options = configService.getOptions();
         // 第一页面基础设置
+        fkwSetting = new FkwSetting(settings, options, developer);
+        // 第一页面基础设置
         baseSetting = new BaseSetting(settings, developer, options);
         // 第二页面选择模板
         selectTemplate = new SelectTemplate();
         // 第三页面选择表中参数
         tableSetting = new TableSetting(psiElements);
-        tableTabbedPane.addTab("基础配置", baseSetting.getContent());
+        tableTabbedPane.addTab("凡科RPC配置", fkwSetting.getContent());
+        tableTabbedPane.addTab("通用Mapper配置", baseSetting.getContent());
         tableTabbedPane.addTab("模板选择", selectTemplate.getContent());
         tableTabbedPane.addTab("数据库表配置", tableSetting.getContent());
         initWindows();

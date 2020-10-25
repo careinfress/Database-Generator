@@ -74,7 +74,7 @@ public class Settings {
     /**
      * Def 包名
      */
-    private String defPackage = "fai.app";
+    private String appPackage = "fai.app";
     /**
      * Inf 包名
      */

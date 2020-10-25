@@ -193,8 +193,8 @@ public class ${entity.name.cli} extends FaiClient {
      * @param matcher 选择条件封装
      * @return 请求处理结果
      */
-    public int del${entity.name}(int id, ParamMatcher matcher) {
-    	return del${entity.name}(0, id, matcher);
+    public int del${entity.name}(int id) {
+    	return del${entity.name}(0, id);
     }
 
     /**
@@ -205,19 +205,18 @@ public class ${entity.name.cli} extends FaiClient {
      * @param matcher 选择条件封装
      * @return 请求处理结果
      */
-    public int del${entity.name}(int aid, int id, ParamMatcher matcher) {
+    public int del${entity.name}(int aid, int id) {
         m_rt = Errno.ERROR;
         Oss.CliStat stat = new Oss.CliStat(m_name, m_flow);
         try {
             // 数据校验
-            if (id <= 0 || matcher == null) {
+            if (id <= 0) {
                 m_rt = Errno.ARGS_ERROR;
                 Log.logErr(m_rt, "args error;aid=%d, id=%d", aid, id);
                 return m_rt;
             }
             // 编码
             FaiBuffer sendBody = new FaiBuffer(true);
-            matcher.toBuffer(sendBody, ${entity.name.def}.Protocol.Key.MATCHER);
             sendBody.putInt(${entity.name.def}.Protocol.Key.ID, id);
             FaiProtocol sendProtocol = new FaiProtocol();
             if (aid > 0) {

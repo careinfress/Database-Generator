@@ -87,7 +87,7 @@ public class SaveFilePath {
                 break;
             case "def":
                 saveFilePath = new SaveFilePath(entityName + settings.getDefSuffix() + ".java",
-                        settings.getJavaPathAt(settings.getDefPackage()));
+                        settings.getJavaPathAt(settings.getAppPackage()));
                 break;
             case "inf":
                 saveFilePath = new SaveFilePath(entityName + ".java",

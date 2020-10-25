@@ -18,14 +18,40 @@ import java.io.IOException;
  */
 public class ${entity.name}Handler extends FaiHandler {
 
-    public ${entity.name}Handler(FaiServer server, DaoPool daoPool, RedisCacheManager cache, PosReadWriteLock lock) {
+    public ${entity.name}Handler(FaiServer server) {
         super(server);
-        m_daoPool = daoPool;
-        m_lock = lock;
-        m_cache = cache;
         m_config = server.getConfig();
+        if (m_config == null) {
+            Log.logErr("config null err");
+            return;
+        }
+        // svr 块配置信息
         m_svrOption = m_config.getConfigObject(${entity.name.svr}.SvrOption.class);
-
+        if (svrOption == null) {
+            Log.logErr("svrOption null err");
+            return;
+        }
+        // 获取锁信息
+        PosReadWriteLock lock = new PosReadWriteLock(svrOption.getLockLength());
+        // 获取分布式缓存配置
+        ServerConfig.RedisOption cacheOption = config.getRedis();
+        if (cacheOption == null) {
+            Log.logErr("redis config file not exists");
+            return;
+        }
+        Param cacheInfo = cacheOption.getRedisOption();
+        RedisClientConfig redisConfig = new RedisClientConfig(cacheInfo);
+        JedisPool jedisPool = JedisPoolFactory.createJedisPool(redisConfig);
+        RedisCacheManager cache = new RedisCacheManager(jedisPool, redisConfig.getExpire(), redisConfig.getExpireRandom());
+        // 获取db信息
+        ServerConfig.DaoOption daoOption = m_config.getDaopool();
+        Param daoInfo = daoOption.getDaoPoolOption();
+        if (daoInfo == null || daoInfo.isEmpty()) {
+            Log.logErr("get daoInfo err");
+            return;
+        }
+        DaoPool daoPool = new DaoPool(m_config.getName(), daoInfo);
+        // Proc
         m_${entity.name.firstLower}Proc = new ${entity.name}Proc(daoPool, cache, lock);
     }
 
@@ -62,7 +88,7 @@ public class ${entity.name}Handler extends FaiHandler {
                                 @ArgFlow final int flow，
                                 @ArgBodyInteger(value = ${entity.name.def}.Protocol.Key.ID) Integer id)
     throws IOException {
-        return m_${entity.name.firstLower}Proc.del${entity.name}(session, flow, id, updater);
+        return m_${entity.name.firstLower}Proc.del${entity.name}(session, flow, id);
     }
 
 
@@ -84,11 +110,7 @@ public class ${entity.name}Handler extends FaiHandler {
     }
 
 
-    private DaoPool m_daoPool;
     private ServerConfig m_config;
-    private RedisCacheManager m_cache;
-    private PosReadWriteLock m_lock;
-    private ${entity.name.svr}.SvrOption m_svrOption;
     private ${entity.name}Proc m_${entity.name.firstLower}Proc;
 
 }

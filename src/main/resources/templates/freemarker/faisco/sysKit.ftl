@@ -60,15 +60,22 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
         return rt;
     }
 
-    /**
-     * 业务处理：删除 <strong>${entity.comment}</strong>
-     *
-     * @param id   主键ID
-     * @param matcher 选择条件封装
-     * @return 请求处理结果
-     */
-    public int del${entity.name}(int id, ParamMatcher matcher) throws Exception {
-    	return del${entity.name}(0, id, matcher);
+    @Override
+    public int del${entity.name}(int id) throws Exception {
+        int rt = Errno.OK;
+        if (id <= 0) {
+            rt = Errno.ARGS_ERROR;
+            App.logErr(rt, "args err; aid=%d, id=%d", m_aid, id);
+            return rt;
+        }
+        ${entity.name.cli} cli = createCli();
+        rt = cli.del${entity.name}(m_aid, id);
+        if (rt != Errno.OK) {
+            App.logErr(rt, "del${entity.name} error; aid=%d, id=%d", m_aid, id);
+            return rt;
+        }
+        Log.logStd("del${entity.name} success; aid=%d, id=%d", m_aid, id);
+        return rt;
     }
 
     @Override

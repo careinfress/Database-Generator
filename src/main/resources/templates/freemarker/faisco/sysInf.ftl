@@ -41,10 +41,9 @@ public interface Sys${entity.name} extends CorpKit {
      * 业务处理：删除 <strong>${entity.comment}</strong>
      *
      * @param id   主键ID
-     * @param matcher 选择条件封装
      * @return 请求处理结果
      */
-    int del${entity.name}(int id, ParamMatcher matcher) throws Exception;
+    int del${entity.name}(int id) throws Exception;
 
 
     /**
