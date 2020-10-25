@@ -1,4 +1,5 @@
-${gen.setType("svr")}
+${gen.setFilename("${entity.name}" + "Handler.java")}
+${gen.setFilepath("fai.svr." + "${entity.name.svr}")}
 package ${entity.packages.svr};
 
 import fai.app.*;

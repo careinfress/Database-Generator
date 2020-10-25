@@ -70,7 +70,7 @@ public class Settings {
     /**
      * Def 后缀
      */
-    private String defSuffix = "Def";
+    private String appSuffix = "Def";
     /**
      * Def 包名
      */

@@ -1,5 +1,6 @@
-${gen.setType("svr")}
-package ${entity.packages.svr};
+${gen.setFilename("${entity.name.svr}" + ".java")}
+${gen.setFilepath("fai.svr." + "${entity.name.svr}")}
+package ${entity.packages.svr.full};
 
 import fai.comm.jnetkit.config.ParamKeyMapping;
 import fai.comm.jnetkit.server.ServerConfig;

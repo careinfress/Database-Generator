@@ -86,7 +86,7 @@ public class SaveFilePath {
                         settings.getJavaPathAt(settings.getCliPackage()));
                 break;
             case "def":
-                saveFilePath = new SaveFilePath(entityName + settings.getDefSuffix() + ".java",
+                saveFilePath = new SaveFilePath(entityName + settings.getAppSuffix() + ".java",
                         settings.getJavaPathAt(settings.getAppPackage()));
                 break;
             case "inf":
@@ -108,9 +108,11 @@ public class SaveFilePath {
             case "svr":
                 saveFilePath = new SaveFilePath( entityName + settings.getSvrSuffix() + ".java",
                         settings.getJavaPathAt(settings.getSvrPackage()));
+                break;
             case "handler":
                 saveFilePath = new SaveFilePath( entityName + settings.getHandlerSuffix() + ".java",
                         settings.getJavaPathAt(settings.getSvrPackage()));
+                break;
             case "proc":
                 saveFilePath = new SaveFilePath( entityName + settings.getProcSuffix() + ".java",
                         settings.getJavaPathAt(settings.getSvrPackage()));

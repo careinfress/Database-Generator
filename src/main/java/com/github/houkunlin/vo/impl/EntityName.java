@@ -75,7 +75,7 @@ public class EntityName implements IName {
         this.controller = build(settings.getControllerSuffix());
 
         this.cli = build(settings.getCliSuffix());
-        this.def = build(settings.getDefSuffix());
+        this.def = build(settings.getAppSuffix());
 
         this.inf = build("");
         this.kit = build("Impl");
