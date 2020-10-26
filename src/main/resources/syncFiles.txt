@@ -1,3 +1,7 @@
+templates/freemarker/netkit/svr.ftl
+templates/freemarker/jnetkit/handler.ftl
+templates/freemarker/jnetkit/svr.ftl
+templates/freemarker/jnetkit/proc.ftl
 templates/freemarker/java/MyBatisUtils.java.ftl
 templates/freemarker/java/Service.java.ftl
 templates/freemarker/java/Repository.java.ftl
@@ -5,5 +9,9 @@ templates/freemarker/java/ServiceImpl.java.ftl
 templates/freemarker/java/Controller.java.ftl
 templates/freemarker/java/Mapper.xml.ftl
 templates/freemarker/java/Entity.java.ftl
-templates/freemarker/faisco/Def.java.ftl
-templates/freemarker/faisco/Cli.java.ftl
+templates/freemarker/faisco/Cli.ftl
+templates/freemarker/faisco/Def.ftl
+templates/freemarker/faisco/sysInf.ftl
+templates/freemarker/faisco/kit.ftl
+templates/freemarker/faisco/sysKit.ftl
+templates/freemarker/faisco/inf.ftl

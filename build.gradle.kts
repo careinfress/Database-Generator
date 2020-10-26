@@ -111,9 +111,9 @@ tasks.getByName<org.jetbrains.intellij.tasks.PublishTask>("publishPlugin") {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     outputs.upToDateWhen { false }
     dependsOn("markdownToHtml")
-    setPluginId("com.github.houkunlin.database.generator")
+    setPluginId("fai.plugin.rpc.generator")
     // 最小支持版本
-    setSinceBuild("181")
+    setSinceBuild("171")
     // 最大支持版本
     setUntilBuild(null)
     doFirst {
@@ -129,7 +129,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
 }
 
 tasks.getByName<org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask>("markdownToHtml") {
-    sourceDir = file("doc/plugin")
+//    sourceDir = file("doc/plugin")
     outputDir = file("$buildDir/gen-html")
 }
 

@@ -13,5 +13,6 @@
   "controllerPackage": "com.example.controller",
   "xmlPackage": "mapper",
   "cliPackage": "fai.cli",
-  "defPackage": "fai.app"
+  "defPackage": "fai.app",
+  "svrPackage": "fai.svr"
 }

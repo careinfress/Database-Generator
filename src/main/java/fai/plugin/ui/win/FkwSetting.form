@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fai.plugin.ui.win.FkwSetting">
+  <grid id="27dc6" binding="content" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+    <constraints>
+      <xy x="35" y="20" width="950" height="538"/>
+    </constraints>
+    <properties>
+      <maximumSize width="950" height="528"/>
+      <minimumSize width="950" height="528"/>
+      <preferredSize width="950" height="528"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="8f10a" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.app.title"/>
+        <children>
+          <component id="8d09a" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.app.package"/>
+            </properties>
+          </component>
+          <component id="c90b8" class="com.intellij.ui.EditorTextField" binding="appPackageField" custom-create="true">
+            <constraints/>
+            <properties>
+              <preferredSize width="240" height="29"/>
+              <text value="fai.cli"/>
+            </properties>
+          </component>
+          <component id="6d4b6" class="javax.swing.JButton" binding="selectAppPackageButton">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.app.package.select"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="b10d9" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.cli.title"/>
+        <children>
+          <component id="585ba" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.cli.package"/>
+            </properties>
+          </component>
+          <component id="ff1a0" class="com.intellij.ui.EditorTextField" binding="cliPackageField" custom-create="true">
+            <constraints/>
+            <properties>
+              <preferredSize width="240" height="29"/>
+              <text value="fai.cli"/>
+            </properties>
+          </component>
+          <component id="c435d" class="javax.swing.JButton" binding="selectCliPackageButton">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.cli.package.select"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="c64a4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.inf.title"/>
+        <children>
+          <component id="4caa0" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.inf.package"/>
+            </properties>
+          </component>
+          <component id="5b7f3" class="com.intellij.ui.EditorTextField" binding="infPackageField" custom-create="true">
+            <constraints/>
+            <properties>
+              <preferredSize width="240" height="29"/>
+              <text value="fai.web.inf"/>
+            </properties>
+          </component>
+          <component id="817e7" class="javax.swing.JButton" binding="selectInfPackageButton">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.inf.package.select"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="4ba47" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.kit.title"/>
+        <children>
+          <component id="7daf5" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.kit.package"/>
+            </properties>
+          </component>
+          <component id="616dd" class="com.intellij.ui.EditorTextField" binding="kitPackageField" custom-create="true">
+            <constraints/>
+            <properties>
+              <preferredSize width="240" height="29"/>
+              <text value="fao.web.kit"/>
+            </properties>
+          </component>
+          <component id="eaaf1" class="javax.swing.JButton" binding="selectKitPackageButton">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.kit.package.select"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="b8b9d" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.svr.title"/>
+        <children>
+          <component id="6d441" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.svr.package"/>
+            </properties>
+          </component>
+          <component id="3c2b2" class="com.intellij.ui.EditorTextField" binding="svrPackageField" custom-create="true">
+            <constraints/>
+            <properties>
+              <preferredSize width="240" height="29"/>
+              <text value="fai.svr"/>
+            </properties>
+          </component>
+          <component id="d0d80" class="javax.swing.JButton" binding="selectSvrPackageButton">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.svr.package.select"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="c9593" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <enabled value="true"/>
+          <opaque value="true"/>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title-resource-bundle="i18n/language" title-key="panel.developer.title"/>
+        <children>
+          <component id="4e3a3" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.developer.name"/>
+            </properties>
+          </component>
+          <component id="223a" class="javax.swing.JTextField" binding="authorField">
+            <constraints/>
+            <properties>
+              <preferredSize width="150" height="29"/>
+            </properties>
+          </component>
+          <component id="d37d3" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text resource-bundle="i18n/language" key="panel.developer.email"/>
+            </properties>
+          </component>
+          <component id="ad06d" class="javax.swing.JTextField" binding="emailField">
+            <constraints/>
+            <properties>
+              <preferredSize width="150" height="29"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="d1527" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="940" height="68"/>
+        </properties>
+        <border type="etched" title="构建选项"/>
+        <children>
+          <component id="dc89c" class="javax.swing.JCheckBox" binding="overrideJavaCheckBox">
+            <constraints/>
+            <properties>
+              <selected value="true"/>
+              <text value="覆盖Java类型文件"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

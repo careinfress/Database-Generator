@@ -1,7 +1,6 @@
-<!--<idea-plugin require-restart="false">-->
 <idea-plugin>
-    <name>Database Generator</name>
-    <vendor email="1184511588@qq.com" url="https://github.com/houkunlin/Database-Generator">侯坤林</vendor>
+    <name>RPC Generator</name>
+    <vendor email="careinfress@gmail.com">celery</vendor>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -12,16 +11,16 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <projectService serviceImplementation="com.github.houkunlin.config.ConfigService"/>
+        <projectService serviceImplementation="fai.plugin.config.ConfigService"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
         <action
-                id="com.github.houkunlin.action.MainAction"
-                class="com.github.houkunlin.action.MainAction"
-                text="Generator Code"
-                description="Generator code">
+                id="fai.plugin.action.MainAction"
+                class="fai.plugin.action.MainAction"
+                text="Smart Generator Code"
+                description="Smart Generator code">
             <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
         </action>
     </actions>

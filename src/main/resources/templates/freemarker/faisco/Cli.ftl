@@ -324,7 +324,6 @@ public class ${entity.name.cli} extends FaiClient {
 				Log.logErr(m_rt, "recv info codec err");
 				return m_rt;
 			}
-            m_rt = Errno.OK;
             return m_rt;
         } finally {
             close();
@@ -413,7 +412,6 @@ public class ${entity.name.cli} extends FaiClient {
 					return m_rt;
 				}
 			}
-            m_rt = Errno.OK;
             return m_rt;
         } finally {
             close();

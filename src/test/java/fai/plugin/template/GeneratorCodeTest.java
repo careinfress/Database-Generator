@@ -1,6 +1,5 @@
 package fai.plugin.template;
 
-import com.github.houkunlin.template.TplType;
 import org.junit.Test;
 
 import java.io.File;

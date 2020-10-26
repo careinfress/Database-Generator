@@ -1,5 +1,4 @@
-${gen.setFilename("${entity.name}" + "Proc.java")}
-${gen.setFilepath("fai.svr." + "${entity.name.svr}" + ".proc")}
+${gen.setType("proc")}
 package ${entity.packages.svr};
 
 import fai.app.*;
@@ -17,9 +16,9 @@ import java.io.IOException;
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
-public class ${entity.name}Proc {
+public class ${entity.name.proc} {
 
-    public ${entity.name}Proc(DaoPool daoPool, RedisCacheManager cache, PosReadWriteLock lock) {
+    public ${entity.name.proc}(DaoPool daoPool, RedisCacheManager cache, PosReadWriteLock lock) {
         m_daoPool = daoPool;
         m_lock = lock;
         m_cache = cache;
@@ -91,9 +90,9 @@ public class ${entity.name}Proc {
             ParamMatcher matcher = new ParamMatcher();
             matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
             matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-            ParamUpdater updater = new ParamUpdater(data);
+            ParamUpdater paramUpdater = new ParamUpdater(data);
             try {
-                rt = dao.update(TABLE_NAME, updater, matcher);
+                rt = dao.update(TABLE_NAME, paramUpdater, matcher);
                 if (rt != Errno.OK) {
                     Log.logErr(rt, "update ${entity.name} err;flow=%d, aid=%d, id=%d", flow, aid, id);
                     return rt;
@@ -184,6 +183,7 @@ public class ${entity.name}Proc {
             matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
             SearchArg searchArg = new SearchArg();
             searchArg.matcher = matcher;
+
             Dao.SelectArg sltArg = new Dao.SelectArg();
             sltArg.table = TABLE_NAME;
             sltArg.searchArg = searchArg;
@@ -199,7 +199,7 @@ public class ${entity.name}Proc {
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);
-            list.toBuffer(sendBuf, ${entity.name.def}.Protocol.Key.INFO, ${entity.name.def}.Protocol.get${entity.name.def}());
+            info.toBuffer(sendBuf, ${entity.name.def}.Protocol.Key.INFO, ${entity.name.def}.Protocol.get${entity.name.def}());
             session.write(sendBuf);
         } finally {
             m_lock.readLock(aid);
@@ -215,11 +215,9 @@ public class ${entity.name}Proc {
         Dao dao = m_daoPool.getDao();
         if (dao == null) {
             rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
+            Log.logErr(rt,"dao null err; flow=%d", flow);
             return rt;
         }
-        // 加锁语句要在 try 代码块之前
-        m_lock.readLock(aid);
         try {
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
@@ -238,20 +236,19 @@ public class ${entity.name}Proc {
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);
-            list.toBuffer(sendBuf, ${entity.name.def}.Protocol.Key.INFO, ${entity.name.def}.Protocol.get${entity.name.def}());
+            list.toBuffer(sendBuf, ${entity.name.def}.Protocol.Key.INFO_LIST, ${entity.name.def}.Protocol.get${entity.name.def}());
             if (searchArg.totalSize != null && searchArg.totalSize.value != null) {
                 sendBuf.putInt(${entity.name.def}.Protocol.Key.TOTAL_SIZE, searchArg.totalSize.value);
             }
             session.write(sendBuf);
         } finally {
-            m_lock.readLock(aid);
             stat.end((rt != Errno.OK && rt != Errno.NOT_FOUND), rt);
         }
         return rt;
     }
 
 
-    protected static final String TABLE_NAME = ${table.name};
+    protected static final String TABLE_NAME = "${table.name}";
 
     private DaoPool m_daoPool;
     private RedisCacheManager m_cache;

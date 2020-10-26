@@ -1,14 +1,17 @@
-${gen.setFilename("${entity.name}" + "Handler.java")}
-${gen.setFilepath("fai.svr." + "${entity.name.svr}")}
+${gen.setType("handler")}
 package ${entity.packages.svr};
 
 import fai.app.*;
-import fai.comm.cache.redis.*;
-import fai.comm.cache.redis.config.*;
-import fai.comm.cache.redis.pool.*;
+import fai.comm.cache.redis.RedisCacheManager;
+import fai.comm.cache.redis.config.RedisClientConfig;
+import fai.comm.cache.redis.pool.JedisPoolFactory;
+import fai.comm.cache.redis.pool.JedisPool;
 import fai.comm.jnetkit.server.ServerConfig;
-import fai.comm.jnetkit.server.fai.*;
+import fai.comm.jnetkit.server.fai.FaiHandler;
+import fai.comm.jnetkit.server.fai.FaiServer;
+import fai.comm.jnetkit.server.fai.FaiSession;
 import fai.comm.jnetkit.server.fai.annotation.*;
+import fai.comm.jnetkit.server.fai.annotation.args.*;
 import fai.comm.util.*;
 import java.io.IOException;
 
@@ -17,9 +20,9 @@ import java.io.IOException;
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
-public class ${entity.name}Handler extends FaiHandler {
+public class ${entity.name.handler} extends FaiHandler {
 
-    public ${entity.name}Handler(FaiServer server) {
+    public ${entity.name.handler}(FaiServer server) {
         super(server);
         m_config = server.getConfig();
         if (m_config == null) {
@@ -27,7 +30,7 @@ public class ${entity.name}Handler extends FaiHandler {
             return;
         }
         // svr 块配置信息
-        m_svrOption = m_config.getConfigObject(${entity.name.svr}.SvrOption.class);
+        ${entity.name.svr}.SvrOption svrOption = m_config.getConfigObject(${entity.name.svr}.SvrOption.class);
         if (svrOption == null) {
             Log.logErr("svrOption null err");
             return;
@@ -35,7 +38,7 @@ public class ${entity.name}Handler extends FaiHandler {
         // 获取锁信息
         PosReadWriteLock lock = new PosReadWriteLock(svrOption.getLockLength());
         // 获取分布式缓存配置
-        ServerConfig.RedisOption cacheOption = config.getRedis();
+        ServerConfig.RedisOption cacheOption = m_config.getRedis();
         if (cacheOption == null) {
             Log.logErr("redis config file not exists");
             return;
@@ -86,19 +89,21 @@ public class ${entity.name}Handler extends FaiHandler {
     @Cmd(${entity.name.def}.Protocol.Cmd.DEL)
     @WrittenCmd
     public int del${entity.name}(final FaiSession session,
-                                @ArgFlow final int flow，
+                                @ArgAid int aid,
+                                @ArgFlow final int flow,
                                 @ArgBodyInteger(value = ${entity.name.def}.Protocol.Key.ID) Integer id)
     throws IOException {
-        return m_${entity.name.firstLower}Proc.del${entity.name}(session, flow, id);
+        return m_${entity.name.firstLower}Proc.del${entity.name}(session, aid, flow, id);
     }
 
 
     @Cmd(${entity.name.def}.Protocol.Cmd.GET)
     public int get${entity.name}(final FaiSession session,
-                                @ArgFlow final int flow，
+                                @ArgAid final int aid,
+                                @ArgFlow final int flow,
                                 @ArgBodyInteger(value = ${entity.name.def}.Protocol.Key.ID) Integer id)
     throws IOException {
-        return m_${entity.name.firstLower}Proc.get${entity.name}(session, flow, id);
+        return m_${entity.name.firstLower}Proc.get${entity.name}(session, aid, flow, id);
     }
 
 
