@@ -1,6 +1,10 @@
 ${gen.setType("svr")}
 package ${entity.packages.svr};
 
+import fai.comm.cache.redis.RedisCacheManager;
+import fai.comm.cache.redis.config.RedisClientConfig;
+import fai.comm.cache.redis.pool.JedisPoolFactory;
+import fai.comm.cache.redis.pool.JedisPool;
 import fai.comm.netkit.IoSession;
 import fai.comm.netkit.FaiProtocol;
 import fai.comm.netkit.FaiServer;
@@ -49,7 +53,7 @@ public class ${entity.name.svr} extends FaiServer {
         JedisPool jedisPool = JedisPoolFactory.createJedisPool(config);
         m_cache = new RedisCacheManager(jedisPool, config.getExpire(), config.getExpireRandom());
 
-        m_${entity.name.proc.firstLower} = new ${entity.name.proc}(daoPool, lock, m_cache, option);
+        m_${entity.name.proc.firstLower} = new ${entity.name.proc}(daoPool, m_cache, lock, option);
 
         addWrittenCmd(${entity.name.def}.Protocol.Cmd.ADD);
         addWrittenCmd(${entity.name.def}.Protocol.Cmd.SET);

@@ -7,7 +7,6 @@ import fai.comm.netkit.FaiClient;
 import fai.comm.netkit.FaiProtocol;
 
 /**
- * client ${entity.comment}
  *
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
@@ -110,7 +109,6 @@ public class ${entity.name.cli} extends FaiClient {
                     return m_rt;
                 }
             }
-            m_rt = Errno.OK;
             return m_rt;
         } finally {
             close();
@@ -178,7 +176,6 @@ public class ${entity.name.cli} extends FaiClient {
                 Log.logErr(m_rt, "recv result err");
                 return m_rt;
             }
-            m_rt = Errno.OK;
             return m_rt;
         } finally {
             close();
@@ -190,7 +187,6 @@ public class ${entity.name.cli} extends FaiClient {
      * 业务处理：删除 <strong>${entity.comment}</strong>
      *
      * @param id   主键ID
-     * @param matcher 选择条件封装
      * @return 请求处理结果
      */
     public int del${entity.name}(int id) {
@@ -202,7 +198,6 @@ public class ${entity.name.cli} extends FaiClient {
      *
      * @param aid  用户标志ID
      * @param id   主键ID
-     * @param matcher 选择条件封装
      * @return 请求处理结果
      */
     public int del${entity.name}(int aid, int id) {
@@ -244,7 +239,6 @@ public class ${entity.name.cli} extends FaiClient {
                 Log.logErr(m_rt, "recv result err");
                 return m_rt;
             }
-            m_rt = Errno.OK;
             return m_rt;
         } finally {
             close();

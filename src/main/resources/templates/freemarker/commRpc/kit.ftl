@@ -43,7 +43,7 @@ public class ${entity.name.kit} extends CorpKitImpl implements ${entity.name} {
     }
 
     @Override
-    public int update${entity.name}(int id, ParamUpdater updater) throws Exception {
+    public int set${entity.name}(int id, ParamUpdater updater) throws Exception {
         int rt = Errno.OK;
         if (id <= 0 || updater == null || updater.isEmpty()) {
             rt = Errno.ARGS_ERROR;
@@ -105,11 +105,6 @@ public class ${entity.name.kit} extends CorpKitImpl implements ${entity.name} {
         if (searchArg.matcher == null) {
             searchArg.matcher = new ParamMatcher();
         }
-
-        // 只允许查自己的
-        SearchArg searchArgTmp = new SearchArg();
-        searchArgTmp.matcher = new ParamMatcher(${entity.name.def}.Protocol.Key.AID, ParamMatcher.EQ, m_aid);
-        searchArg.matcher.and(searchArgTmp.matcher);
 
         ${entity.name.cli} cli = createCli();
         rt = cli.get${entity.name}List(m_aid, searchArg, list);

@@ -56,7 +56,7 @@ public class ${entity.name.handler} extends FaiHandler {
         }
         DaoPool daoPool = new DaoPool(m_config.getName(), daoInfo);
         // Proc
-        m_${entity.name.firstLower}Proc = new ${entity.name}Proc(daoPool, cache, lock);
+        m_${entity.name.firstLower}Proc = new ${entity.name.proc}(daoPool, cache, lock);
     }
 
     @Cmd(${entity.name.def}.Protocol.Cmd.ADD)
@@ -109,14 +109,15 @@ public class ${entity.name.handler} extends FaiHandler {
 
     @Cmd(${entity.name.def}.Protocol.Cmd.GET_LIST)
     public int get${entity.name}List(final FaiSession session,
+                                @ArgAid final int aid,
                                 @ArgFlow final int flow,
                                 @ArgSearchArg(${entity.name.def}.Protocol.Key.SEARCH_ARG) SearchArg searchArg)
     throws IOException {
-        return m_${entity.name.firstLower}Proc.get${entity.name}List(session, flow, searchArg);
+        return m_${entity.name.firstLower}Proc.get${entity.name}List(session, aid, flow, searchArg);
     }
 
 
     private ServerConfig m_config;
-    private ${entity.name}Proc m_${entity.name.firstLower}Proc;
+    private ${entity.name.proc} m_${entity.name.firstLower}Proc;
 
 }

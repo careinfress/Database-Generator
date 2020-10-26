@@ -1,5 +1,5 @@
-${gen.setType("inf")}
-package ${entity.packages.inf};
+${gen.setType("sysInf")}
+package ${entity.packages.sysInf};
 
 import fai.comm.util.*;
 
@@ -8,7 +8,7 @@ import fai.comm.util.*;
  * @author ${developer.author}
  * @date ${date.toString("yyyy-MM-dd HH:mm:ss")}
  */
-public interface ${entity.name.inf} extends CorpKit {
+public interface Sys${entity.name} extends CorpKit {
 
     /**
      * 业务处理：保存添加 <strong>${entity.comment}</strong>
@@ -34,8 +34,7 @@ public interface ${entity.name.inf} extends CorpKit {
      * @param updater 更新的操作封装
      * @return 请求处理结果
      */
-    int update${entity.name}(int id, ParamUpdater updater) throws Exception;
-
+    int set${entity.name}(int id, ParamUpdater updater) throws Exception;
 
     /**
      * 业务处理：删除 <strong>${entity.comment}</strong>
@@ -45,7 +44,6 @@ public interface ${entity.name.inf} extends CorpKit {
      */
     int del${entity.name}(int id) throws Exception;
 
-
     /**
      * 业务处理：获取一条记录 <strong>${entity.comment}</strong>
      *
@@ -53,7 +51,6 @@ public interface ${entity.name.inf} extends CorpKit {
      * @return 一条记录
      */
     Param get${entity.name}(int id) throws Exception;
-
 
     /**
      * 业务处理：获取记录集 <strong>${entity.comment}</strong>

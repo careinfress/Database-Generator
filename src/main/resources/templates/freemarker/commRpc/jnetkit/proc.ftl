@@ -20,26 +20,27 @@ public class ${entity.name.proc} {
 
     public ${entity.name.proc}(DaoPool daoPool, RedisCacheManager cache, PosReadWriteLock lock) {
         m_daoPool = daoPool;
-        m_lock = lock;
         m_cache = cache;
+        m_lock = lock;
     }
 
     public int add${entity.name}(FaiSession session, int aid, int flow, Param param) throws IOException {
         int rt = Errno.ERROR;
         Oss.SvrStat stat = new Oss.SvrStat(flow);
-        // 获取数据库连接
-        Dao dao = m_daoPool.getDao();
-        if (dao == null) {
-            rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
-            return rt;
-        }
-        // 加锁语句要在 try 代码块之前
-        m_lock.writeLock(aid);
         try {
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
+            // 获取数据库连接
+            Dao dao = m_daoPool.getDao();
+            if (dao == null) {
+                rt = Errno.DAO_CONN_ERROR;
+                Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
+                return rt;
+            }
+
             Ref<Integer> rowCount = new Ref<Integer>();
+            // 加锁语句要在 try 代码块之前
+            m_lock.writeLock(aid);
             try {
                 rt = dao.insert(TABLE_NAME, param, rowCount);
                 if (rt != Errno.OK) {
@@ -48,6 +49,7 @@ public class ${entity.name.proc} {
                 }
             } finally {
                 dao.close();
+                m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
             // 回写客户端
@@ -55,7 +57,6 @@ public class ${entity.name.proc} {
             sendBuf.putInt(${entity.name.def}.Protocol.Key.ID, rowCount.value);
             session.write(sendBuf);
         } finally {
-            m_lock.writeUnlock(aid);
             stat.end((rt != Errno.OK), rt);
         }
         return rt;
@@ -65,33 +66,33 @@ public class ${entity.name.proc} {
     public int set${entity.name}(FaiSession session, int aid, int flow, int id, ParamUpdater updater) throws IOException {
         int rt = Errno.ERROR;
         Oss.SvrStat stat = new Oss.SvrStat(flow);
-        if (id <= 0) {
-            rt = Errno.ARGS_ERROR;
-            Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
-            return rt;
-        }
-        Param updateInfo = updater.getData();
-        // TODO 需要手动 assign
-        Param data = new Param();
-
-        // 获取数据库连接
-        Dao dao = m_daoPool.getDao();
-        if (dao == null) {
-            rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d, aid=%d, id=%d", flow, aid, id);
-            return rt;
-        }
-        // 加锁语句要在 try 代码块之前
-        m_lock.writeLock(aid);
         try {
+            if (id <= 0) {
+                rt = Errno.ARGS_ERROR;
+                Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
+                return rt;
+            }
+            Param updateInfo = updater.getData();
+            // TODO 需要手动 assign
+            Param data = new Param();
+
+            // 获取数据库连接
+            Dao dao = m_daoPool.getDao();
+            if (dao == null) {
+                rt = Errno.DAO_CONN_ERROR;
+                Log.logErr(rt,"dao null err; flow=%d, aid=%d, id=%d", flow, aid, id);
+                return rt;
+            }
+
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
-            // TODO 手动 matcher 条件
-            ParamMatcher matcher = new ParamMatcher();
-            matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-            matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-            ParamUpdater paramUpdater = new ParamUpdater(data);
+            // 加锁语句要在 try 代码块之前
+            m_lock.writeLock(aid);
             try {
+                ParamMatcher matcher = new ParamMatcher();
+                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+                ParamUpdater paramUpdater = new ParamUpdater(data);
                 rt = dao.update(TABLE_NAME, paramUpdater, matcher);
                 if (rt != Errno.OK) {
                     Log.logErr(rt, "update ${entity.name} err;flow=%d, aid=%d, id=%d", flow, aid, id);
@@ -99,6 +100,7 @@ public class ${entity.name.proc} {
                 }
             } finally {
                 dao.close();
+                m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
             // rt != Errno.OK 时底层会自动 session.write(rt)
@@ -106,7 +108,6 @@ public class ${entity.name.proc} {
             // 不要将 session.write(rt) 写进 finally 块中，否则服务端会出现 PIPE 问题
             session.write(rt);
         } finally {
-            m_lock.writeUnlock(aid);
             stat.end((rt != Errno.OK), rt);
         }
         return rt;
@@ -116,28 +117,27 @@ public class ${entity.name.proc} {
     public int del${entity.name}(FaiSession session, int aid, int flow, int id) throws IOException {
         int rt = Errno.ERROR;
         Oss.SvrStat stat = new Oss.SvrStat(flow);
-        if (id <= 0) {
-            rt = Errno.ARGS_ERROR;
-            Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
-            return rt;
-        }
-        // 获取数据库连接
-        Dao dao = m_daoPool.getDao();
-        if (dao == null) {
-            rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
-            return rt;
-        }
-        // 加锁语句要在 try 代码块之前
-        m_lock.writeLock(aid);
         try {
+            if (id <= 0) {
+                rt = Errno.ARGS_ERROR;
+                Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
+                return rt;
+            }
+            // 获取数据库连接
+            Dao dao = m_daoPool.getDao();
+            if (dao == null) {
+                rt = Errno.DAO_CONN_ERROR;
+                Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
+                return rt;
+            }
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
-            // TODO 手动 matcher 条件
-            ParamMatcher matcher = new ParamMatcher();
-            matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-            matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+            // 加锁语句要在 try 代码块之前
+            m_lock.writeLock(aid);
             try {
+                ParamMatcher matcher = new ParamMatcher();
+                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
                 rt = dao.delete(TABLE_NAME, matcher);
                 if (rt != Errno.OK) {
                     Log.logErr(rt, "delete ${entity.name} err;flow=%d, aid=%d", flow, aid);
@@ -145,6 +145,7 @@ public class ${entity.name.proc} {
                 }
             } finally {
                 dao.close();
+                m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
             // rt != Errno.OK 时底层会自动 session.write(rt)
@@ -152,7 +153,6 @@ public class ${entity.name.proc} {
             // 不要将 session.write(rt) 写进 finally 块中，否则服务端会出现 PIPE 问题
             session.write(rt);
         } finally {
-            m_lock.writeUnlock(aid);
             stat.end((rt != Errno.OK), rt);
         }
         return rt;
@@ -161,34 +161,34 @@ public class ${entity.name.proc} {
     public int get${entity.name}(FaiSession session, int aid, int flow, int id) throws IOException {
         int rt = Errno.ERROR;
         Oss.SvrStat stat = new Oss.SvrStat(flow);
-        if (id <= 0) {
-            rt = Errno.ARGS_ERROR;
-            Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
-            return rt;
-        }
-        // 获取数据库连接
-        Dao dao = m_daoPool.getDao();
-        if (dao == null) {
-            rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
-            return rt;
-        }
-        // 加锁语句要在 try 代码块之前
-        m_lock.readLock(aid);
         try {
+            if (id <= 0) {
+                rt = Errno.ARGS_ERROR;
+                Log.logErr(rt, "args error;flow=%d, aid=%d, id=%d", flow, aid, id);
+                return rt;
+            }
+            // 获取数据库连接
+            Dao dao = m_daoPool.getDao();
+            if (dao == null) {
+                rt = Errno.DAO_CONN_ERROR;
+                Log.logErr(rt,"dao null err; flow=%d, aid=%d", flow, aid);
+                return rt;
+            }
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
-            ParamMatcher matcher = new ParamMatcher();
-            matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-            matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-            SearchArg searchArg = new SearchArg();
-            searchArg.matcher = matcher;
-
-            Dao.SelectArg sltArg = new Dao.SelectArg();
-            sltArg.table = TABLE_NAME;
-            sltArg.searchArg = searchArg;
             Param info;
+            // 加锁语句要在 try 代码块之前
+            m_lock.readLock(aid);
             try {
+                ParamMatcher matcher = new ParamMatcher();
+                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+                SearchArg searchArg = new SearchArg();
+                searchArg.matcher = matcher;
+
+                Dao.SelectArg sltArg = new Dao.SelectArg();
+                sltArg.table = TABLE_NAME;
+                sltArg.searchArg = searchArg;
                 info = dao.selectFirst(sltArg);
                 if (null == info) {
                     Log.logErr(rt, "search ${entity.name} error;flow=%d, aid=%d, id=%d;", flow, aid, id);
@@ -196,36 +196,38 @@ public class ${entity.name.proc} {
                 }
             } finally {
                 dao.close();
+                m_lock.readLock(aid);
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);
             info.toBuffer(sendBuf, ${entity.name.def}.Protocol.Key.INFO, ${entity.name.def}.Protocol.get${entity.name.def}());
             session.write(sendBuf);
         } finally {
-            m_lock.readLock(aid);
             stat.end((rt != Errno.OK && rt != Errno.NOT_FOUND), rt);
         }
         return rt;
     }
 
-    public int get${entity.name}List(FaiSession session, int flow, SearchArg searchArg) throws IOException {
+    public int get${entity.name}List(FaiSession session, int aid, int flow, SearchArg searchArg) throws IOException {
         int rt = Errno.ERROR;
         Oss.SvrStat stat = new Oss.SvrStat(flow);
-        // 获取数据库连接
-        Dao dao = m_daoPool.getDao();
-        if (dao == null) {
-            rt = Errno.DAO_CONN_ERROR;
-            Log.logErr(rt,"dao null err; flow=%d", flow);
-            return rt;
-        }
         try {
+            // 获取数据库连接
+            Dao dao = m_daoPool.getDao();
+            if (dao == null) {
+                rt = Errno.DAO_CONN_ERROR;
+                Log.logErr(rt,"dao null err; flow=%d", flow);
+                return rt;
+            }
             // TODO 这里省略较多跟业务相关代码，请自行填充
 
-            Dao.SelectArg sltArg = new Dao.SelectArg();
-            sltArg.table = TABLE_NAME;
-            sltArg.searchArg = searchArg;
             FaiList<Param> list;
+            // 加锁语句要在 try 代码块之前
+            m_lock.readLock(aid);
             try {
+                Dao.SelectArg sltArg = new Dao.SelectArg();
+                sltArg.table = TABLE_NAME;
+                sltArg.searchArg = searchArg;
                 list = dao.select(sltArg);
                 if (null == list) {
                     Log.logErr(rt, "search ${entity.name}List error;flow=%d", flow);
@@ -233,6 +235,7 @@ public class ${entity.name.proc} {
                 }
             } finally {
                 dao.close();
+                m_lock.readLock(aid);
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);

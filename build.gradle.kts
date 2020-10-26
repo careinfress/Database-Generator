@@ -129,7 +129,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
 }
 
 tasks.getByName<org.kordamp.gradle.plugin.markdown.tasks.MarkdownToHtmlTask>("markdownToHtml") {
-//    sourceDir = file("doc/plugin")
+    sourceDir = file("doc/plugin")
     outputDir = file("$buildDir/gen-html")
 }
 

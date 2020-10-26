@@ -43,7 +43,7 @@ public class Sys${entity.name}Impl extends CorpKitImpl implements Sys${entity.na
     }
 
     @Override
-    public int update${entity.name}(int id, ParamUpdater updater) throws Exception {
+    public int set${entity.name}(int id, ParamUpdater updater) throws Exception {
         int rt = Errno.OK;
         if (id <= 0 || updater == null || updater.isEmpty()) {
             rt = Errno.ARGS_ERROR;
