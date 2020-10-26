@@ -29,7 +29,7 @@
             <constraints/>
             <properties>
               <preferredSize width="100" height="29"/>
-              <text value="Entity"/>
+              <text value="Model"/>
             </properties>
           </component>
           <component id="8d09a" class="javax.swing.JLabel">
@@ -42,7 +42,7 @@
             <constraints/>
             <properties>
               <preferredSize width="240" height="29"/>
-              <text value="com.example.entity"/>
+              <text value="com.example.model"/>
             </properties>
           </component>
           <component id="6d4b6" class="javax.swing.JButton" binding="selectEntityPackageButton">
@@ -70,7 +70,7 @@
             <constraints/>
             <properties>
               <preferredSize width="100" height="29"/>
-              <text value="Repository"/>
+              <text value="Mapper"/>
             </properties>
           </component>
           <component id="585ba" class="javax.swing.JLabel">
@@ -83,7 +83,7 @@
             <constraints/>
             <properties>
               <preferredSize width="240" height="29"/>
-              <text value="com.example.repository"/>
+              <text value="com.example.mapper"/>
             </properties>
           </component>
           <component id="c435d" class="javax.swing.JButton" binding="selectDaoPackageButton">

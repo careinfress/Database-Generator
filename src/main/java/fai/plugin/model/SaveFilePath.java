@@ -26,7 +26,18 @@ public class SaveFilePath {
         types.add("service");
         types.add("serviceImpl");
         types.add("controller");
+        types.add("mapper");
         types.add("xml");
+        types.add("def");
+        types.add("cli");
+        types.add("inf");
+        types.add("kit");
+        types.add("sysInf");
+        types.add("sysKit");
+        types.add("svr");
+        types.add("handler");
+        types.add("proc");
+        types.add("antBuild");
     }
 
     /**
@@ -80,6 +91,10 @@ public class SaveFilePath {
             case "controller":
                 saveFilePath = new SaveFilePath(entityName + settings.getControllerSuffix() + ".java",
                         settings.getJavaPathAt(settings.getControllerPackage()));
+                break;
+            case "mapper":
+                saveFilePath = new SaveFilePath(entityName + settings.getMapperSuffix() + ".java",
+                        settings.getJavaPathAt(settings.getMapperPackage()));
                 break;
             case "cli":
                 saveFilePath = new SaveFilePath(entityName + settings.getCliSuffix() + ".java",

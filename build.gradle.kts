@@ -33,7 +33,7 @@ val intellijPublishToken: String = getProperty("intellijPublishToken", "")
 // 插件版本
 val pluginVersion: String = getProperty("pluginVersion", "1.0.0")
 
-group = "com.github.houkunlin"
+group = "fai.plugin"
 version = pluginVersion
 
 println(">>> PROJECT INFO : $group --> { intellij-version = IU-$intellijVersion, intellij-publish-token = ${intellijPublishToken.isNotBlank()}, plugin-version = $version }")
