@@ -42,13 +42,18 @@ public class ${entity.name.proc} {
             // 加锁语句要在 try 代码块之前
             m_lock.writeLock(aid);
             try {
-                rt = dao.insert(TABLE_NAME, param, rowCount);
-                if (rt != Errno.OK) {
-                    Log.logErr(rt, "insert ${entity.name} err;flow=%d, aid=%d", flow, aid);
-                    return rt;
+                // TODO 这里省略较多跟业务相关代码，请自行填充
+
+                try {
+                    rt = dao.insert(TABLE_NAME, param, rowCount);
+                    if (rt != Errno.OK) {
+                        Log.logErr(rt, "insert ${entity.name} err;flow=%d, aid=%d", flow, aid);
+                        return rt;
+                    }
+                } finally {
+                    dao.close();
                 }
             } finally {
-                dao.close();
                 m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
@@ -89,17 +94,22 @@ public class ${entity.name.proc} {
             // 加锁语句要在 try 代码块之前
             m_lock.writeLock(aid);
             try {
-                ParamMatcher matcher = new ParamMatcher();
-                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-                ParamUpdater paramUpdater = new ParamUpdater(data);
-                rt = dao.update(TABLE_NAME, paramUpdater, matcher);
-                if (rt != Errno.OK) {
-                    Log.logErr(rt, "update ${entity.name} err;flow=%d, aid=%d, id=%d", flow, aid, id);
-                    return rt;
+                // TODO 这里省略较多跟业务相关代码，请自行填充
+
+                try {
+                    ParamMatcher matcher = new ParamMatcher();
+                    matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                    matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+                    ParamUpdater paramUpdater = new ParamUpdater(data);
+                    rt = dao.update(TABLE_NAME, paramUpdater, matcher);
+                    if (rt != Errno.OK) {
+                        Log.logErr(rt, "update ${entity.name} err;flow=%d, aid=%d, id=%d", flow, aid, id);
+                        return rt;
+                    }
+                } finally {
+                    dao.close();
                 }
             } finally {
-                dao.close();
                 m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
@@ -135,16 +145,21 @@ public class ${entity.name.proc} {
             // 加锁语句要在 try 代码块之前
             m_lock.writeLock(aid);
             try {
-                ParamMatcher matcher = new ParamMatcher();
-                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-                rt = dao.delete(TABLE_NAME, matcher);
-                if (rt != Errno.OK) {
-                    Log.logErr(rt, "delete ${entity.name} err;flow=%d, aid=%d", flow, aid);
-                    return rt;
+                // TODO 这里省略较多跟业务相关代码，请自行填充
+
+                try {
+                    ParamMatcher matcher = new ParamMatcher();
+                    matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                    matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+                    rt = dao.delete(TABLE_NAME, matcher);
+                    if (rt != Errno.OK) {
+                        Log.logErr(rt, "delete ${entity.name} err;flow=%d, aid=%d", flow, aid);
+                        return rt;
+                    }
+                } finally {
+                    dao.close();
                 }
             } finally {
-                dao.close();
                 m_lock.writeUnlock(aid);
             }
             rt = Errno.OK;
@@ -180,23 +195,28 @@ public class ${entity.name.proc} {
             // 加锁语句要在 try 代码块之前
             m_lock.readLock(aid);
             try {
-                ParamMatcher matcher = new ParamMatcher();
-                matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
-                matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
-                SearchArg searchArg = new SearchArg();
-                searchArg.matcher = matcher;
+                // TODO 这里省略较多跟业务相关代码，请自行填充
 
-                Dao.SelectArg sltArg = new Dao.SelectArg();
-                sltArg.table = TABLE_NAME;
-                sltArg.searchArg = searchArg;
-                info = dao.selectFirst(sltArg);
-                if (null == info) {
-                    Log.logErr(rt, "search ${entity.name} error;flow=%d, aid=%d, id=%d;", flow, aid, id);
-                    return rt;
+                try {
+                    ParamMatcher matcher = new ParamMatcher();
+                    matcher.and(${entity.name.def}.${entity.name}Info.AID, ParamMatcher.EQ, aid);
+                    matcher.and(${entity.name.def}.${entity.name}Info.ID, ParamMatcher.EQ, id);
+                    SearchArg searchArg = new SearchArg();
+                    searchArg.matcher = matcher;
+
+                    Dao.SelectArg sltArg = new Dao.SelectArg();
+                    sltArg.table = TABLE_NAME;
+                    sltArg.searchArg = searchArg;
+                    info = dao.selectFirst(sltArg);
+                    if (null == info) {
+                        Log.logErr(rt, "search ${entity.name} error;flow=%d, aid=%d, id=%d;", flow, aid, id);
+                        return rt;
+                    }
+                } finally {
+                    dao.close();
                 }
             } finally {
-                dao.close();
-                m_lock.readLock(aid);
+                m_lock.readUnlock(aid);
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);
@@ -225,17 +245,22 @@ public class ${entity.name.proc} {
             // 加锁语句要在 try 代码块之前
             m_lock.readLock(aid);
             try {
-                Dao.SelectArg sltArg = new Dao.SelectArg();
-                sltArg.table = TABLE_NAME;
-                sltArg.searchArg = searchArg;
-                list = dao.select(sltArg);
-                if (null == list) {
-                    Log.logErr(rt, "search ${entity.name}List error;flow=%d", flow);
-                    return rt;
+                // TODO 这里省略较多跟业务相关代码，请自行填充
+
+                try {
+                    Dao.SelectArg sltArg = new Dao.SelectArg();
+                    sltArg.table = TABLE_NAME;
+                    sltArg.searchArg = searchArg;
+                    list = dao.select(sltArg);
+                    if (null == list) {
+                        Log.logErr(rt, "search ${entity.name}List error;flow=%d", flow);
+                        return rt;
+                    }
+                } finally {
+                    dao.close();
                 }
             } finally {
-                dao.close();
-                m_lock.readLock(aid);
+                m_lock.readUnlock(aid);
             }
             rt = Errno.OK;
             FaiBuffer sendBuf = new FaiBuffer(true);
