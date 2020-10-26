@@ -121,9 +121,13 @@ public class SaveFilePath {
                 saveFilePath = new SaveFilePath(entityName + settings.getDaoSuffix() + ".xml",
                         settings.getSourcesPathAt(settings.getXmlPackage()));
                 break;
+            case "antBuild":
+                saveFilePath = new SaveFilePath("build.xml",
+                        settings.getJavaPathAt(settings.getSvrPackage()));
+                break;
             default:
                 saveFilePath = new SaveFilePath(entityName + ".java",
-                        settings.getSourcesPathAt("temp"));
+                    settings.getSourcesPathAt("temp"));
         }
         return saveFilePath;
     }

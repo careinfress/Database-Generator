@@ -1,3 +1,4 @@
+${gen.setType("antBuild")}
 <?xml version="1.0"?>
 
 <project default="${entity.name.svr}" basedir=".">

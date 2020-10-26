@@ -31,7 +31,7 @@ val intellijVersion: String = getProperty("intellijVersion", "2020.2")
 // intellij 上传插件 Token
 val intellijPublishToken: String = getProperty("intellijPublishToken", "")
 // 插件版本
-val pluginVersion: String = getProperty("pluginVersion", "2.4.0")
+val pluginVersion: String = getProperty("pluginVersion", "1.0.0")
 
 group = "com.github.houkunlin"
 version = pluginVersion
@@ -85,8 +85,8 @@ intellij {
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -114,8 +114,6 @@ public class Settings {
     private String procSuffix = "Proc";
 
 
-
-
     public String getSourcesPathAt(String filename) {
         return sourcesPath + "/" + filename;
     }
